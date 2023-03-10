@@ -1,2 +1,8 @@
-server.port=8080
-spring.application.name=usuario-servicio
+spring:
+  application:
+    name: usuario-servicio
+
+  cloud:
+    config:
+      enable: true
+      uri: http://localhost:8090

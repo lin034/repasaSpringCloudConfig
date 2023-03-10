@@ -9,10 +9,12 @@
         <module name="moto-servicio" />
         <module name="carro-servicio" />
         <module name="usuario-servicio" />
+        <module name="config-servicio" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="carro-servicio" target="11" />
+      <module name="config-servicio" target="11" />
       <module name="moto-servicio" target="11" />
       <module name="usuario-servicio" target="11" />
     </bytecodeTargetLevel>
@@ -20,6 +22,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="carro-servicio" options="-parameters" />
+      <module name="config-servicio" options="-parameters" />
       <module name="moto-servicio" options="-parameters" />
       <module name="usuario-servicio" options="-parameters" />
     </option>

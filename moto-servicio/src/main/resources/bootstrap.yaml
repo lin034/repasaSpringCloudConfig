@@ -1,2 +1,9 @@
-server.port=8082
-spring.application.name=moto-servicio
+
+spring:
+  application:
+    name: moto-servicio
+
+  cloud:
+    config:
+      enable: true
+      uri: http://localhost:8090
