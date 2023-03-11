@@ -6,7 +6,7 @@ spring:
     config:
       server:
         git:
-          default-label: eureka
+          default-label: multiples-instancias
           uri: https://github.com/lin034/repasaSpringCloudConfig.git
           search-paths: config-data
   application:
