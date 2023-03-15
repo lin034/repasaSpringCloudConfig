@@ -6,6 +6,7 @@ import com.pildoralin.usuarioservicio.feignclient.MotoFeignClient;
 import com.pildoralin.usuarioservicio.modelo.Carro;
 import com.pildoralin.usuarioservicio.modelo.Moto;
 import com.pildoralin.usuarioservicio.service.UsuarioService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +58,7 @@ public class UsuarioControlador {
         return new ResponseEntity<>(usuario1, HttpStatus.CREATED);
     }
 
+    @CircuitBreaker(name = "carrosCB", fallbackMethod = "fallBackDameCarros")
     @GetMapping("/carros/{usuarioId}")
     public ResponseEntity<List<Carro>> dameCarrosPorUsuarioId(@PathVariable(name="usuarioId") int usuarioId){
 
@@ -77,6 +79,7 @@ public class UsuarioControlador {
         return ResponseEntity.ok(carros);
     }
 
+    @CircuitBreaker(name = "motosCB", fallbackMethod = "fallBackDameMotos")
     @GetMapping("/motos/{usuarioId}")
     public ResponseEntity<List<Moto>> dameMotosPorUsuarioId(@PathVariable(name ="usuarioId") int usuarioId){
 
@@ -97,6 +100,7 @@ public class UsuarioControlador {
         return ResponseEntity.ok(motos);
     }
 
+    @CircuitBreaker(name = "carrosCB", fallbackMethod = "fallBackGuardaCarro")
     @PostMapping("/carros/{usuarioId}")
     public ResponseEntity<Carro> guardaCarro(@RequestBody Carro carro, @PathVariable(name="usuarioId") int usuarioId){
 
@@ -112,6 +116,7 @@ public class UsuarioControlador {
         return new ResponseEntity<>(carro1, HttpStatus.CREATED);
     }
 
+    @CircuitBreaker(name = "motosCB", fallbackMethod = "fallBackGuardaMoto")
     @PostMapping("/motos/{usuarioId}")
     public ResponseEntity<Moto> guardaMoto(@RequestBody Moto moto, @PathVariable(name="usuarioId") int usuarioId){
 
@@ -129,6 +134,7 @@ public class UsuarioControlador {
         return new ResponseEntity<>(moto1, HttpStatus.CREATED);
     }
 
+    @CircuitBreaker(name = "todosCB", fallbackMethod = "fallBackDameVehiculos")
     @GetMapping("/todos/{usuarioId}")
     public ResponseEntity<Map<String, Object>> dameVehiculos(@PathVariable(name="usuarioId") int usuarioId){
 
@@ -141,6 +147,30 @@ public class UsuarioControlador {
         Map<String, Object> vehiculos = usuarioService.dameVehiculosUsuario(usuarioId);
 
         return ResponseEntity.ok(vehiculos);
+    }
 
+    private ResponseEntity<List<Carro>> dameCarrosPorUsuarioId(@PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
+
+        return new ResponseEntity("el microservicio dame carros por usuario id fuera de servicio intente mas tarde", HttpStatus.OK);
+    }
+
+    private ResponseEntity<List<Moto>> dameMotosPorUsuarioId(@PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
+
+        return new ResponseEntity("el microservicio dame motos por usuario id fuera de servicio intente mas tarde", HttpStatus.OK);
+    }
+
+    private ResponseEntity<Carro> guardaCarro(@RequestBody Carro carro, @PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
+
+        return new ResponseEntity("el microservicio guarda carro fuera de servicio intente mas tarde", HttpStatus.OK);
+    }
+
+    private ResponseEntity<Carro> guardaMoto(@RequestBody Moto moto, @PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
+
+        return new ResponseEntity("el microservicio guarda moto fuera de servicio intente mas tarde", HttpStatus.OK);
+    }
+
+    private ResponseEntity<Map<String, Object>> dameVehiculos(@PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
+
+        return new ResponseEntity("el microservicio dame vehiculos por usuario fuera de servivio intente mas tarde", HttpStatus.OK);
     }
 }

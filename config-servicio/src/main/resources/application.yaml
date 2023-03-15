@@ -6,7 +6,7 @@ spring:
     config:
       server:
         git:
-          default-label: gateway
+          default-label: circuit-breaker
           uri: https://github.com/lin034/repasaSpringCloudConfig.git
           search-paths: config-data
           clone-on-start: true
