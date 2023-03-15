@@ -149,27 +149,27 @@ public class UsuarioControlador {
         return ResponseEntity.ok(vehiculos);
     }
 
-    private ResponseEntity<List<Carro>> dameCarrosPorUsuarioId(@PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
+    private ResponseEntity<List<Carro>> fallBackDameCarros(@PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
 
         return new ResponseEntity("el microservicio dame carros por usuario id fuera de servicio intente mas tarde", HttpStatus.OK);
     }
 
-    private ResponseEntity<List<Moto>> dameMotosPorUsuarioId(@PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
+    private ResponseEntity<List<Moto>> fallBackDameMotos(@PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
 
         return new ResponseEntity("el microservicio dame motos por usuario id fuera de servicio intente mas tarde", HttpStatus.OK);
     }
 
-    private ResponseEntity<Carro> guardaCarro(@RequestBody Carro carro, @PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
+    private ResponseEntity<Carro> fallBackGuardaCarro(@RequestBody Carro carro, @PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
 
         return new ResponseEntity("el microservicio guarda carro fuera de servicio intente mas tarde", HttpStatus.OK);
     }
 
-    private ResponseEntity<Carro> guardaMoto(@RequestBody Moto moto, @PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
+    private ResponseEntity<Carro> fallBackGuardaMoto(@RequestBody Moto moto, @PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
 
         return new ResponseEntity("el microservicio guarda moto fuera de servicio intente mas tarde", HttpStatus.OK);
     }
 
-    private ResponseEntity<Map<String, Object>> dameVehiculos(@PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
+    private ResponseEntity<Map<String, Object>> fallBackDameVehiculos(@PathVariable(name="usuarioId") int usuarioId, RuntimeException exception){
 
         return new ResponseEntity("el microservicio dame vehiculos por usuario fuera de servivio intente mas tarde", HttpStatus.OK);
     }
